@@ -1,22 +1,29 @@
 {
-  "name": "SAP_Project",
+  "name": "riverkleaner",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": ">=5",
-    "express": "^4"
+    "@sap/cds": "^5",
+    "@sap/xssec": "^3",
+    "express": "^4",
+    "hdb": "^0.19.5",
+    "passport": "^0.6.0",
+    "sqlite3": "^5.0.11",
+    "xhr2": "^0.2.1"
   },
   "devDependencies": {
-    "sqlite3": "^5.0.4"
-  },
-  "scripts": {
-    "start": "cds run"
+    "@sap/hdi-deploy": "^4.3.3",
+    "@sap/ux-specification": "^1.100.4"
   },
   "engines": {
-    "node": "^16.15"
+    "node": "^16"
+  },
+  "scripts": {
+    "start": "cds run",
+    "build": "cds build/all --clean"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -41,13 +48,16 @@
     "rules": {
       "no-console": "off",
       "require-atomic-updates": "off"
-    },
-    "cds": { 
-      "requires": { 
-        "db": { 
-          "kind": "sql" 
-          } 
-        } 
     }
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana-cloud"
+      }
+    }
+  },
+  "hana": {
+    "deploy-format": "hdbtable"
   }
 }

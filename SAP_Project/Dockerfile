@@ -1,9 +1,10 @@
-FROM node:16.16 
+FROM node:16.16
 
-WORKDIR /usr/src/app 
-COPY gen/srv . 
-RUN npm install 
+# ENV NODE_ENV=production
 
-EXPOSE 4004 
-USER node 
+WORKDIR /usr/src/app
+COPY gen/srv .
+RUN npm install
+EXPOSE 4004
+USER node
 CMD [ "npm", "start" ]

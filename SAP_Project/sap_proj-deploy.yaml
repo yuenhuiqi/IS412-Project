@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: RiverKleaner
+  namespace: smu-team02
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sap-proj-ebst2
+  template:
+    metadata:
+      labels:
+        app: sap-proj-ebst2
+        version: v1
+    spec:
+      containers:
+      - name: ebs-t2-river_kleaner
+        image: yzq1780/sap_proj:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: 32Mi
+        ports:
+        - containerPort: 4004
+          name: http
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sap-proj-ebst2
+  labels:
+    app: sap-proj-ebst2
+spec:
+  ports:
+  - port: 4004
+    name: http
+    targetPort: 4004
+  selector:
+    app: sap-proj-ebst2
+
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: sap_proj-smu-team02-rule
+  namespace: smu-team02
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  service:
+    name: sap-proj-ebst2
+    port: 4004
+    host: "?????"
+  rules:
+    - path: /.*
+      methods: ["GET","POST"]
+      mutators: []
+      accessStrategies:
+      - handler: noop
