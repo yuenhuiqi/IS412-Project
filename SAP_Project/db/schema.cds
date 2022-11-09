@@ -1,7 +1,7 @@
 using { managed } from '@sap/cds/common';
 namespace smu.team02;
 
-entity TRASH_GEOLOCATION: managed {
+entity TRASH_GEOLOCATION {
     key NAME : String;
     TRASH_SIZE : String;
     LOCATION : String;
@@ -9,3 +9,12 @@ entity TRASH_GEOLOCATION: managed {
     LONGITUDE : Decimal(11,8);
     TRASH_DETAILS : String;
 }
+
+entity TEST {
+    key NAME : String;
+    TRASH_SIZE : String;
+    TRASH_DETAILS : String;
+}
+
+
+

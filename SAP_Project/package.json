@@ -6,24 +6,20 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^5",
-    "@sap/xssec": "^3",
+    "@sap/cds": "^6",
     "express": "^4",
-    "hdb": "^0.19.5",
-    "passport": "^0.6.0",
-    "sqlite3": "^5.0.11",
-    "xhr2": "^0.2.1"
+    "hdb": "^0.19.5"
   },
   "devDependencies": {
     "@sap/hdi-deploy": "^4.3.3",
-    "@sap/ux-specification": "^1.100.4"
-  },
-  "engines": {
-    "node": "^16"
+    "sqlite3": "^5.0.4"
   },
   "scripts": {
     "start": "cds run",
-    "build": "cds build/all --clean"
+    "build": "cds build/all --clean;cp gen/srv/srv/csn.json srv/gen/;cp -r gen/db/src/gen db/src"
+  },
+  "engines": {
+    "node": "^16.15"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -53,7 +49,7 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "hana-cloud"
+        "kind": "hana"
       }
     }
   },
