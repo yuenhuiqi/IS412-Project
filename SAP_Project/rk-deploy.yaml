@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: riverkleaner
+  name: rkapp
   namespace: smu-team02
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: riverkleaner
+      app: rkapp
   template:
     metadata:
       labels:
-        app: riverkleaner
+        app: rkapp
         version: v1
     spec:
       containers:
-      - name: riverkleaner
-        image: yzq1780/riverkleaner:latest
+      - name: rkapp
+        image: yzq1780/rkapp:latest
         imagePullPolicy: Always
         resources:
           limits:
@@ -32,32 +32,32 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: riverkleaner-service
+  name: rkapp
   labels:
-    app: riverkleaner
+    app: rkapp
 spec:
   ports:
   - port: 4004
     name: http
     targetPort: 4004
   selector:
-    app: riverkleaner
+    app: rkapp
 
 ---
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: riverkleaner-rule
+  name: rkapp-smu-team02-rule
   namespace: smu-team02
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   service:
-    host: riverkleaner
-    name: riverkleaner-service
+    name: rkapp
     port: 4004
+    host: rkapp-smu-team02
   rules:
     - path: /.*
       methods: ["GET","POST"]
       mutators: []
       accessStrategies:
-      - handler: allow
+      - handler: noop
