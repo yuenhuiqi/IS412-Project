@@ -51,8 +51,22 @@
   },
   "cds": {
     "requires": {
-      "db": {
-        "kind": "hana-cloud"
+      "[hybrid]": {
+        "db": {
+          "binding": {
+            "type": "cf",
+            "apiEndpoint": "https://api.cf.jp10.hana.ondemand.com",
+            "org": "smu-2022-challenge",
+            "space": "services",
+            "instance": "ebs-t2-river_kleaner",
+            "key": "ebs-t2-river_kleaner-key",
+            "resolved": false
+          },
+          "kind": "hana",
+          "vcap": {
+            "name": "db"
+          }
+        }
       }
     }
   },

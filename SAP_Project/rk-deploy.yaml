@@ -27,7 +27,9 @@ spec:
         ports:
         - containerPort: 4004
           name: http
-
+        envFrom:
+          - secretRef:
+              name: ebs-t2-riverkleaner-secret
 ---
 apiVersion: v1
 kind: Service
@@ -60,4 +62,4 @@ spec:
       methods: ["GET","POST"]
       mutators: []
       accessStrategies:
-      - handler: noop
+      - handler: allow
